@@ -1,0 +1,11 @@
+C:\Users\Aya\source\repos\Clinic Managemt\obj\x86\Debug\CMS.vbprojAssemblyReference.cache
+C:\Users\Aya\source\repos\Clinic Managemt\obj\x86\Debug\CMS.Diseas.resources
+C:\Users\Aya\source\repos\Clinic Managemt\obj\x86\Debug\CMS.Doctor Panel.resources
+C:\Users\Aya\source\repos\Clinic Managemt\obj\x86\Debug\CMS.Form1.resources
+C:\Users\Aya\source\repos\Clinic Managemt\obj\x86\Debug\CMS.Manage Patient.resources
+C:\Users\Aya\source\repos\Clinic Managemt\obj\x86\Debug\CMS.New Patient.resources
+C:\Users\Aya\source\repos\Clinic Managemt\obj\x86\Debug\CMS.NuresPanel.resources
+C:\Users\Aya\source\repos\Clinic Managemt\obj\x86\Debug\CMS.Resources.resources
+C:\Users\Aya\source\repos\Clinic Managemt\obj\x86\Debug\CMS.users.resources
+C:\Users\Aya\source\repos\Clinic Managemt\obj\x86\Debug\CMS.vbproj.GenerateResource.cache
+C:\Users\Aya\source\repos\Clinic Managemt\obj\x86\Debug\CMS.vbproj.CoreCompileInputs.cache
