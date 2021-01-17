@@ -202,5 +202,10 @@ namespace Clinic_Managemt
         {
             reset();
         }
+
+        private void button5_Click(object sender, EventArgs e)
+        {
+            this.Hide();
+        }
     }
 }

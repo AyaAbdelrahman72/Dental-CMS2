@@ -59,5 +59,33 @@ namespace Clinic_Managemt
                 MessageBox.Show("Authentication Failed");
             }
         }
+
+        private void Form1_Load(object sender, EventArgs e)
+        {
+
+        }
+
+        private void label2_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            if (textBox2.PasswordChar == '*')
+            {
+                button3.BringToFront();
+                textBox2.PasswordChar = '\0';
+            }
+        }
+
+        private void button3_Click(object sender, EventArgs e)
+        {
+            if (textBox2.PasswordChar == '\0')
+            {
+                button2.BringToFront();
+                textBox2.PasswordChar = '*';
+            }
+        }
     }
 }

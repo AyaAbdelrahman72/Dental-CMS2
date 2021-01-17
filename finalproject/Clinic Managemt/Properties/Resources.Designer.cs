@@ -61,11 +61,51 @@ namespace Clinic_Managemt.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap a7ecb81143599953e81cdb6e53f34c70 {
+            get {
+                object obj = ResourceManager.GetObject("a7ecb81143599953e81cdb6e53f34c70", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Data Source=desktop-ascgghn\sqlexpress;Initial Catalog=CMS;Integrated Security=True.
         /// </summary>
         internal static string ConnectionString {
             get {
                 return ResourceManager.GetString("ConnectionString", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap eyess {
+            get {
+                object obj = ResourceManager.GetObject("eyess", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap icons8_eye_32 {
+            get {
+                object obj = ResourceManager.GetObject("icons8-eye-32", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap icons8_hide_32 {
+            get {
+                object obj = ResourceManager.GetObject("icons8-hide-32", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
             }
         }
     }

@@ -33,7 +33,8 @@ namespace Clinic_Managemt
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.textBox1 = new System.Windows.Forms.TextBox();
-            this.listBox1 = new System.Windows.Forms.ListBox();
+            this.PatientFromNurseView = new System.Windows.Forms.DataGridView();
+            ((System.ComponentModel.ISupportInitialize)(this.PatientFromNurseView)).BeginInit();
             this.SuspendLayout();
             // 
             // button1
@@ -73,21 +74,22 @@ namespace Clinic_Managemt
             this.textBox1.TabIndex = 3;
             this.textBox1.TextChanged += new System.EventHandler(this.textBox1_TextChanged);
             // 
-            // listBox1
+            // PatientFromNurseView
             // 
-            this.listBox1.FormattingEnabled = true;
-            this.listBox1.ItemHeight = 16;
-            this.listBox1.Location = new System.Drawing.Point(425, 90);
-            this.listBox1.Name = "listBox1";
-            this.listBox1.Size = new System.Drawing.Size(171, 132);
-            this.listBox1.TabIndex = 4;
+            this.PatientFromNurseView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.PatientFromNurseView.Location = new System.Drawing.Point(425, 83);
+            this.PatientFromNurseView.Name = "PatientFromNurseView";
+            this.PatientFromNurseView.RowHeadersWidth = 51;
+            this.PatientFromNurseView.RowTemplate.Height = 24;
+            this.PatientFromNurseView.Size = new System.Drawing.Size(401, 329);
+            this.PatientFromNurseView.TabIndex = 4;
             // 
             // NuresPanel
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(800, 450);
-            this.Controls.Add(this.listBox1);
+            this.ClientSize = new System.Drawing.Size(838, 450);
+            this.Controls.Add(this.PatientFromNurseView);
             this.Controls.Add(this.textBox1);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
@@ -95,6 +97,7 @@ namespace Clinic_Managemt
             this.Name = "NuresPanel";
             this.Text = "NuresPanel";
             this.Load += new System.EventHandler(this.NuresPanel_Load);
+            ((System.ComponentModel.ISupportInitialize)(this.PatientFromNurseView)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -106,6 +109,6 @@ namespace Clinic_Managemt
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.TextBox textBox1;
-        private System.Windows.Forms.ListBox listBox1;
+        private System.Windows.Forms.DataGridView PatientFromNurseView;
     }
 }

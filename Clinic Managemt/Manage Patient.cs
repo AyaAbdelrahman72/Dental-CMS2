@@ -32,6 +32,10 @@ namespace Clinic_Managemt
 
         private void textBox1_TextChanged_1(object sender, EventArgs e)
         {
+            searchPatient();
+        }
+        public void  searchPatient()
+        {
             try
             {
                 con.Open();
@@ -211,6 +215,7 @@ namespace Clinic_Managemt
                 finally
                 {
                     con.Close();
+                    reset();
                 }
 
             }
@@ -219,7 +224,7 @@ namespace Clinic_Managemt
         {   
         
             SqlCommand command = con.CreateCommand();
-            command.CommandText = "SELECT * from Patients ORDER BY patient_accountCreation DESC,patient_name";
+            command.CommandText = "SELECT patient_name,patient_phone,patient_accountCreation from Patients ORDER BY patient_accountCreation DESC,patient_name";
             command.ExecuteNonQuery();
             DataTable dt = new DataTable();
             SqlDataAdapter da = new SqlDataAdapter(command);
@@ -300,7 +305,7 @@ namespace Clinic_Managemt
 
                     command = con.CreateCommand();
                     patientID = Convert.ToInt32(PatientsForm.CurrentRow.Cells[0].Value.ToString());
-                    command.CommandText = "SELECT patient_name,patient_phone,patient_accountCreation,patient_DateOfBirth,medications,Visit_Doctor_Before,smoking,Address,[payment issue],Gendar,Tranquillizers,Diseas,dateoflastVisit FROM Patients WHERE patient_id=@patientID";
+                    command.CommandText = "SELECT patient_name,patient_phone,patient_accountCreation,patient_DateOfBirth,medications,Visit_Doctor_Before,smoking,Address,[payment issue],Gendar,Tranquillizers,Diseas,dateoflastVisit,reasonoflastVisit FROM Patients WHERE patient_id=@patientID";
                     command.Parameters.AddWithValue("@patientID", patientID);
 
                     con.Open();
@@ -318,9 +323,10 @@ namespace Clinic_Managemt
                         if (DateTime.TryParse(reader.GetValue(12).ToString(), out dlastvisit)) ;
                         dateTimePicker2.Value = dlastvisit;
 
-
+                        textBox3.Text= reader.GetValue(7).ToString();
                         textBox5.Text = reader.GetValue(2).ToString();
                         textBox9.Text = reader.GetInt32(1).ToString();
+                        textBox2.Text = reader.GetValue(12).ToString();
 
                         if (reader.GetValue(9).ToString() == "Female")
                         {
@@ -458,6 +464,32 @@ namespace Clinic_Managemt
         private void radioButton4_CheckedChanged(object sender, EventArgs e)
         {
             payment = "private";
+        }
+
+        private void button5_Click(object sender, EventArgs e)
+        {
+            New_Patient patient = new New_Patient();
+            patient.Insert();
+        }
+
+        private void groupBox2_Enter(object sender, EventArgs e)
+        {
+
+        }
+
+        private void label4_Click_1(object sender, EventArgs e)
+        {
+
+        }
+
+        private void label7_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void groupBox7_Enter(object sender, EventArgs e)
+        {
+
         }
     }
 }

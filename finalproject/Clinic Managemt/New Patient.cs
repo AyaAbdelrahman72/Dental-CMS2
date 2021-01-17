@@ -27,17 +27,19 @@ namespace Clinic_Managemt
         SqlCommand command;
         private void button1_Click(object sender, EventArgs e)
         {
-            if (textBox8.Text == "" || textBox9.Text == "")
+            
+            if (textBox8.Text == "" || textBox9.Text == "" || textBox3.Text==""|| textBox1.Text==""||Gendar==""||payment=="")
             {
                 MessageBox.Show("Please check the inputs");
                 return;
             }
             //Account Creation
             command = con.CreateCommand();
-            command.CommandText = "INSERT INTO Patients (patient_name ,patient_phone,patient_accountCreation,patient_DateOfBirth,medications,Visit_Doctor_Before,smoking,Address,[payment issue],Gendar,Tranquillizers,Diseas,dateoflastVisit) VALUES (@name,@phone,@date,@birth,@medications,@visit,@smoking,@address,@payment,@gendar,@tranqu,@diseas,@datevisit)";
+            command.CommandText = "INSERT INTO Patients (patient_name ,patient_phone,patient_accountCreation,patient_DateOfBirth,medications,Visit_Doctor_Before,smoking,Address,[payment issue],Gendar,Tranquillizers,Diseas,dateoflastVisit,reasonoflastVisit,ManualID) VALUES (@name,@phone,@date,@birth,@medications,@visit,@smoking,@address,@payment,@gendar,@tranqu,@diseas,@datevisit,@reason,@MID)";
             command.Parameters.AddWithValue("@name", textBox8.Text);
-            command.Parameters.AddWithValue("@phone", textBox9.Text);
-            
+            command.Parameters.AddWithValue("@phone", textBox9.Text); 
+                command.Parameters.AddWithValue("@MID", textBox3.Text);
+
             command.Parameters.AddWithValue("@date", DateTime.Now);
             command.Parameters.AddWithValue("@birth", dateTimePicker1.Value);
            
@@ -47,11 +49,13 @@ namespace Clinic_Managemt
             command.Parameters.AddWithValue("@smoking", checkBox2.Checked);
             command.Parameters.AddWithValue("@tranqu", checkBox3.Checked);
             command.Parameters.AddWithValue("@address", textBox1.Text);
-        
+            command.Parameters.AddWithValue("@reason", textBox2.Text);
+
             command.Parameters.AddWithValue("@gendar", Gendar);
-            string s = "";
-           
+
             command.Parameters.AddWithValue("@payment", payment);
+            string s = "";
+          
 
             if (checkBox4.Checked)
             {
@@ -136,18 +140,18 @@ namespace Clinic_Managemt
            
             command.Parameters.AddWithValue("@diseas",s);
 
-
-            con.Open();
-            if (command.ExecuteNonQuery() > 0)
-            {
-                MessageBox.Show("Account was created successfully...!");
-            }
-            else
-            {
-                MessageBox.Show("Failed to create the account");
-            }
-            con.Close();
-            
+           
+                con.Open();
+                if (command.ExecuteNonQuery() > 0)
+                {
+                    MessageBox.Show("Account was created successfully...!");
+                }
+                else
+                {
+                    MessageBox.Show("Failed to create the account");
+                }
+                con.Close();
+           
         }
 
         private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
@@ -325,6 +329,45 @@ namespace Clinic_Managemt
         private void radioButton4_CheckedChanged(object sender, EventArgs e)
         {
             payment = "private";
+        }
+
+        private void groupBox1_Enter(object sender, EventArgs e)
+        {
+
+        }
+        //this function for validate that these fields doesn't have a null value
+        int IsNull(string name,string id,string phone,string address)
+        {
+            if(name==" " || id ==null || phone==null|| address==" ")
+            {
+                return 1;
+            }
+            else
+            {
+                return 0;
+            }
+            
+
+        }
+
+        private void groupBox3_Enter(object sender, EventArgs e)
+        {
+
+        }
+
+        private void textBox3_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            CheckInt(e);
+        }
+
+       public void CheckInt(KeyPressEventArgs e)
+        {
+            char chr = e.KeyChar;
+            if(!Char.IsDigit(chr) && chr != 8)
+            {
+                e.Handled = true;
+                MessageBox.Show("please enter Only Integers من فضلك ادخل فقط ارقام صحيحه");
+            }
         }
     }
     }

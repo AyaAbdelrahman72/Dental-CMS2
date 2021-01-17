@@ -59,5 +59,10 @@ namespace Clinic_Managemt
                 MessageBox.Show("Authentication Failed");
             }
         }
+
+        private void Form1_Load(object sender, EventArgs e)
+        {
+
+        }
     }
 }

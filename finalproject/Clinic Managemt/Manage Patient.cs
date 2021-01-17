@@ -21,14 +21,14 @@ namespace Clinic_Managemt
         SqlConnection con = new SqlConnection(Properties.Resources.ConnectionString);
         SqlCommand command;
         int patientID = 0;
-      
+
 
         private void Manage_Patient_Load(object sender, EventArgs e)
         {
             con.Open();
             display();
         }
-      
+
 
         private void textBox1_TextChanged_1(object sender, EventArgs e)
         {
@@ -36,7 +36,7 @@ namespace Clinic_Managemt
             {
                 con.Open();
                 SqlCommand command = con.CreateCommand();
-                command.CommandText = "SELECT patient_id,patient_name,patient_accountCreation from Patients where patient_name  like @search+'%' ORDER BY patient_accountCreation DESC, patient_name";
+                command.CommandText = "SELECT patient_id,ManualID,patient_name,patient_accountCreation from Patients where patient_name  like @search+'%' or ManualID like @search+'%'  ORDER BY patient_accountCreation DESC, patient_name";
                 command.Parameters.AddWithValue("@search", textBox1.Text);
                 command.ExecuteNonQuery();
                 DataTable dt = new DataTable();
@@ -54,8 +54,8 @@ namespace Clinic_Managemt
                 con.Close();
             }
         }
-       
-       
+
+
 
         private void label2_Click(object sender, EventArgs e)
         {
@@ -81,23 +81,24 @@ namespace Clinic_Managemt
 
         private void button2_Click(object sender, EventArgs e)
         {
-             if (patientID == 0)
+            if (patientID == 0)
             {
                 MessageBox.Show("There is no selected data to be updated----------------");
             }
-            else if (textBox8.Text == "" )
+            else if (textBox8.Text == "" || textBox4.Text == "" || textBox9.Text == "" || textBox3.Text == "")
             {
                 MessageBox.Show("Please check the inputs");
                 return;
             }
-           
+
             else
             {
                 try
                 {
                     con.Open();
                     command = con.CreateCommand();
-                    command.CommandText = "UPDATE Patients SET patient_name=@name,patient_phone=@phone,Visit_Doctor_Before=@visitbefore,[payment issue]=@payment,smoking=@smoking,medications=@medications,patient_DateOfBirth=@birthdate,Gendar=@gendar,Address=@address,dateoflastVisit=@dlastvisit,reasonoflastVisit=@reason,Tranquillizers=@tranq , Diseas=@diseas WHERE patient_id=@id";
+                    command.CommandText = "UPDATE Patients SET patient_name=@name,patient_phone=@phone,Visit_Doctor_Before=@visitbefore,[payment issue]=@payment,smoking=@smoking,medications=@medications,patient_DateOfBirth=@birthdate,Gendar=@gendar,Address=@address,dateoflastVisit=@dlastvisit,reasonoflastVisit=@reason,Tranquillizers=@tranq , Diseas=@diseas,ManualID=@mid WHERE patient_id=@id ";
+                    command.Parameters.AddWithValue("@mid", textBox4.Text);
                     command.Parameters.AddWithValue("@id", patientID);
                     command.Parameters.AddWithValue("@name", textBox8.Text);
                     command.Parameters.AddWithValue("@phone", textBox9.Text);
@@ -112,7 +113,7 @@ namespace Clinic_Managemt
                     command.Parameters.AddWithValue("@reason", textBox2.Text);
                     command.Parameters.AddWithValue("@tranq", checkBox3.Checked);
                     string s = "";
-                    
+
 
                     if (checkBox4.Checked)
                     {
@@ -196,13 +197,13 @@ namespace Clinic_Managemt
                     }
 
                     command.Parameters.AddWithValue("@diseas", s);
-                  
+
 
                     command.ExecuteNonQuery();
                     MessageBox.Show("Account updated Successfully");
                     display();
-                  
-                   
+
+
                 }
                 catch (Exception ex)
                 {
@@ -216,10 +217,10 @@ namespace Clinic_Managemt
             }
         }
         public void display()
-        {   
-        
+        {
+
             SqlCommand command = con.CreateCommand();
-            command.CommandText = "SELECT * from Patients ORDER BY patient_accountCreation DESC,patient_name";
+            command.CommandText = "SELECT ManualID,patient_name,patient_accountCreation from Patients ORDER BY patient_accountCreation DESC,patient_name";
             command.ExecuteNonQuery();
             DataTable dt = new DataTable();
             SqlDataAdapter da = new SqlDataAdapter(command);
@@ -231,8 +232,8 @@ namespace Clinic_Managemt
         private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
 
-           
-            
+
+
         }
 
         private void button3_Click(object sender, EventArgs e)
@@ -275,6 +276,7 @@ namespace Clinic_Managemt
 
         private void PatientsForm_DoubleClick(object sender, EventArgs e)
         {
+
             try
             {
                 if (PatientsForm.CurrentRow.Index != -1)
@@ -296,11 +298,14 @@ namespace Clinic_Managemt
                     checkBox18.Checked = false;
                     checkBox19.Checked = false;
                     checkBox20.Checked = false;
+                    checkBox21.Checked = false;
+                    checkBox22.Checked = false;
+                    checkBox23.Checked = false;
 
 
                     command = con.CreateCommand();
                     patientID = Convert.ToInt32(PatientsForm.CurrentRow.Cells[0].Value.ToString());
-                    command.CommandText = "SELECT patient_name,patient_phone,patient_accountCreation,patient_DateOfBirth,medications,Visit_Doctor_Before,smoking,Address,[payment issue],Gendar,Tranquillizers,Diseas,dateoflastVisit FROM Patients WHERE patient_id=@patientID";
+                    command.CommandText = "SELECT patient_name,patient_phone,patient_accountCreation,patient_DateOfBirth,medications,Visit_Doctor_Before,smoking,Address,[payment issue],Gendar,Tranquillizers,Diseas,dateoflastVisit,reasonoflastVisit,ManualID FROM Patients WHERE patient_id=@patientID";
                     command.Parameters.AddWithValue("@patientID", patientID);
 
                     con.Open();
@@ -311,6 +316,8 @@ namespace Clinic_Managemt
                     {
 
                         textBox8.Text = reader.GetString(0);
+                        textBox2.Text = reader.GetString(13);
+                        textBox4.Text = reader.GetValue(14).ToString();
                         DateTime dob = new DateTime();
                         if (DateTime.TryParse(reader.GetValue(3).ToString(), out dob)) ;
                         dateTimePicker1.Value = dob;
@@ -318,9 +325,10 @@ namespace Clinic_Managemt
                         if (DateTime.TryParse(reader.GetValue(12).ToString(), out dlastvisit)) ;
                         dateTimePicker2.Value = dlastvisit;
 
-
+                        textBox3.Text = reader.GetValue(7).ToString();
                         textBox5.Text = reader.GetValue(2).ToString();
                         textBox9.Text = reader.GetInt32(1).ToString();
+                       
 
                         if (reader.GetValue(9).ToString() == "Female")
                         {
@@ -353,27 +361,30 @@ namespace Clinic_Managemt
                         {
                             checkBox3.Checked = true;
                         }
+                       
                         string diseasList = reader["Diseas"].ToString();
                         string[] diseas = diseasList.Split(',');
-                       
+
                         foreach (Control cc in this.Controls)
                         {
                             if (cc is CheckBox)
                             {
+                               
                                 CheckBox b = (CheckBox)cc;
                                 for (int i = 0; i < diseas.Length; i++)
                                 {
                                     if (diseas[i].ToString() == b.Text)
                                     {
+                                      
                                         b.Checked = true;
                                     }
 
                                 }
-                               
+
 
                             }
+
                         }
-                       
                     }
                 }
             }
@@ -387,14 +398,17 @@ namespace Clinic_Managemt
                 con.Close();
             }
 
-            
+
+
+
+
         }
         void reset()
         {
-          
-            textBox8.Text= textBox9.Text = textBox11.Text= textBox3.Text = textBox2.Text="";
+            patientID = 0;
+            textBox8.Text = textBox9.Text = textBox11.Text = textBox3.Text = textBox2.Text = textBox4.Text = "";
             checkBox1.Checked = checkBox2.Checked = checkBox3.Checked = false;
-           
+
             checkBox4.Checked = false;
             checkBox5.Checked = false;
             checkBox6.Checked = false;
@@ -422,7 +436,7 @@ namespace Clinic_Managemt
 
 
 
-            
+
         }
 
         private void listBox1_SelectedIndexChanged(object sender, EventArgs e)
@@ -458,6 +472,68 @@ namespace Clinic_Managemt
         private void radioButton4_CheckedChanged(object sender, EventArgs e)
         {
             payment = "private";
+        }
+
+        private void textBox5_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void PatientsForm_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
+        {
+
+        }
+
+       
+    
+        private void textBox4_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            New_Patient newPatient = new New_Patient();
+            newPatient.CheckInt(e);
+
+
+        }
+
+        
+
+        private void button5_Click_1(object sender, EventArgs e)
+        {
+            
+        }
+
+        private void dateTimePicker4_ValueChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void dateTimePicker3_CloseUp(object sender, EventArgs e)
+        {
+            try
+            {
+                con.Open();
+                SqlCommand command = con.CreateCommand();
+                command.CommandText = "SELECT patient_id,ManualID,patient_name,patient_accountCreation from Patients where patient_accountCreation like @date1+'%' ";
+                command.Parameters.AddWithValue("@date1", dateTimePicker3);
+                command.ExecuteNonQuery();
+                DataTable dt = new DataTable();
+                SqlDataAdapter da = new SqlDataAdapter(command);
+                da.Fill(dt);
+                PatientsForm.DataSource = dt;
+                PatientsForm.Columns[0].Visible = false;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Error Message");
+            }
+            finally
+            {
+                con.Close();
+            }
+        }
+
+        private void button5_Click(object sender, EventArgs e)
+        {
+            this.Hide();
         }
     }
 }

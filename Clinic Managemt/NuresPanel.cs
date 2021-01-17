@@ -17,26 +17,10 @@ namespace Clinic_Managemt
         {
             InitializeComponent();
         }
-        private void updateList(string query)
-        {
-            SqlConnection con = new SqlConnection(Properties.Resources.ConnectionString);
-            SqlCommand command = con.CreateCommand();
-            con.Open();
-            command.CommandText="SELECT  patient_id , patient_name   from [Patients] WHERE patient_name Like @query or patient_phone Like @query order by patient_name ";
-            command.Parameters.AddWithValue("@query", query + "%");
-            SqlDataReader reader = command.ExecuteReader();
-            listBox1.Items.Clear();
-            while (reader.Read())
-            {
-                
-                    listBox1.Items.Add(new Patient(reader.GetInt32(0), reader.GetString(1)));
-               
-            }
-            
+        SqlConnection con = new SqlConnection(Properties.Resources.ConnectionString);
+        SqlCommand command;
 
-
-            con.Close();
-        }
+      
 
         private void NuresPanel_Load(object sender, EventArgs e)
         {
@@ -59,7 +43,34 @@ namespace Clinic_Managemt
 
         private void textBox1_TextChanged(object sender, EventArgs e)
         {
-            updateList(textBox1.Text);
+            try
+            {
+                con.Open();
+                SqlCommand command = con.CreateCommand();
+                command.CommandText = "SELECT patient_name,patient_accountCreation from Patients where patient_name  like @search+'%' ORDER BY patient_accountCreation DESC, patient_name";
+                command.Parameters.AddWithValue("@search", textBox1.Text);
+                command.ExecuteNonQuery();
+                DataTable dt = new DataTable();
+                SqlDataAdapter da = new SqlDataAdapter(command);
+                 da.Fill(dt);
+                 PatientFromNurseView.DataSource = dt;
+
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Error Message");
+            }
+            finally
+            {
+                con.Close();
+            }
+        }
+       
+
+
+        private void listBox1_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
         }
     }
 }

@@ -16,7 +16,7 @@ namespace Clinic_Managemt
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new Doctor_Panel() );
+            Application.Run(new Form1());
         }
     }
 }

@@ -39,5 +39,12 @@ namespace Clinic_Managemt
             Manageusers.ShowDialog();
             Show();
         }
+
+        private void button3_Click(object sender, EventArgs e)
+        {
+            Form1 welcome = new Form1();
+            this.Hide();
+            Program.f1.Show();
+        }
     }
 }

@@ -27,6 +27,11 @@ namespace Clinic_Managemt
         SqlCommand command;
         private void button1_Click(object sender, EventArgs e)
         {
+            Insert();
+            
+        }
+        public void Insert()
+        {
             if (textBox8.Text == "" || textBox9.Text == "")
             {
                 MessageBox.Show("Please check the inputs");
@@ -37,20 +42,20 @@ namespace Clinic_Managemt
             command.CommandText = "INSERT INTO Patients (patient_name ,patient_phone,patient_accountCreation,patient_DateOfBirth,medications,Visit_Doctor_Before,smoking,Address,[payment issue],Gendar,Tranquillizers,Diseas,dateoflastVisit) VALUES (@name,@phone,@date,@birth,@medications,@visit,@smoking,@address,@payment,@gendar,@tranqu,@diseas,@datevisit)";
             command.Parameters.AddWithValue("@name", textBox8.Text);
             command.Parameters.AddWithValue("@phone", textBox9.Text);
-            
+
             command.Parameters.AddWithValue("@date", DateTime.Now);
             command.Parameters.AddWithValue("@birth", dateTimePicker1.Value);
-           
+
             command.Parameters.AddWithValue("@datevisit", dateTimePicker2.Value);
             command.Parameters.AddWithValue("@medications", textBox11.Text);
             command.Parameters.AddWithValue("@visit", checkBox1.Checked);
             command.Parameters.AddWithValue("@smoking", checkBox2.Checked);
             command.Parameters.AddWithValue("@tranqu", checkBox3.Checked);
             command.Parameters.AddWithValue("@address", textBox1.Text);
-        
+
             command.Parameters.AddWithValue("@gendar", Gendar);
             string s = "";
-           
+
             command.Parameters.AddWithValue("@payment", payment);
 
             if (checkBox4.Checked)
@@ -133,8 +138,8 @@ namespace Clinic_Managemt
             {
                 s = checkBox23.Text + ',' + s;
             }
-           
-            command.Parameters.AddWithValue("@diseas",s);
+
+            command.Parameters.AddWithValue("@diseas", s);
 
 
             con.Open();
@@ -147,7 +152,6 @@ namespace Clinic_Managemt
                 MessageBox.Show("Failed to create the account");
             }
             con.Close();
-            
         }
 
         private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)

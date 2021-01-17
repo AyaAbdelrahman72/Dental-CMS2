@@ -8,6 +8,7 @@ namespace Clinic_Managemt
 {
     static class Program
     {
+        public static Form1 f1;
         /// <summary>
         /// The main entry point for the application.
         /// </summary>
@@ -16,7 +17,8 @@ namespace Clinic_Managemt
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new Manage_Patient() );
+            f1 = new Form1();
+            Application.Run(Program.f1 );
         }
     }
 }
